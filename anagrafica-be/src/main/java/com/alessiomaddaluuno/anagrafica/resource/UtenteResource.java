@@ -1,9 +1,21 @@
 package com.alessiomaddaluuno.anagrafica.resource;
 
-import lombok.Builder;
-import lombok.Data;
 
-@Data @Builder
+
 public class UtenteResource {
+
     private String username;
+
+    public UtenteResource() {
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+
 }

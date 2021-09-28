@@ -67,7 +67,11 @@ public class AuthService {
         DecodedJWT decodedJWT = JwtProvider.verifyJwt(token);
         String username = decodedJWT.getClaim("user").as(String.class);
         Utente utente = this.utenteRepository.findByUsername(username);
-        return UtenteResource.builder().username(utente.getUsername()).build();
+
+        UtenteResource resource = new UtenteResource();
+        resource.setUsername(utente.getUsername());
+
+        return resource;
 
     }
 

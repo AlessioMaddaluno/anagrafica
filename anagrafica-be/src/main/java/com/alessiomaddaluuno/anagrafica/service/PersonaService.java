@@ -12,7 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -80,13 +79,15 @@ public class PersonaService {
 
     // model -> resource
     private PersonaResource assembler(Persona model){
-        return PersonaResource.builder()
-                .id(model.getId())
-                .nome(model.getNome())
-                .cognome(model.getCognome())
-                .eta(model.getEta())
-                .citta(model.getCitta())
-                .build();
+
+        PersonaResource resource = new PersonaResource();
+        resource.setId(model.getId());
+        resource.setNome(model.getNome());
+        resource.setCognome(model.getCognome());
+        resource.setEta(model.getEta());
+        resource.setCitta(model.getCitta());
+
+        return resource;
     }
 
 }

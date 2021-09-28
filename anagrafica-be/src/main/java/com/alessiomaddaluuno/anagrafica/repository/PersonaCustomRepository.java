@@ -126,13 +126,13 @@ public class PersonaCustomRepository {
 
     // model -> resource
     private PersonaResource assembler(Persona model){
-        return PersonaResource.builder()
-                .id(model.getId())
-                .nome(model.getNome())
-                .cognome(model.getCognome())
-                .eta(model.getEta())
-                .citta(model.getCitta())
-                .build();
+        PersonaResource resource = new PersonaResource();
+        resource.setId(model.getId());
+        resource.setNome(model.getNome());
+        resource.setCognome(model.getCognome());
+        resource.setEta(model.getEta());
+        resource.setCitta(model.getCitta());
+        return resource;
     }
 
 }

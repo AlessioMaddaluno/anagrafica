@@ -2,16 +2,12 @@ package com.alessiomaddaluuno.anagrafica.controller;
 
 import com.alessiomaddaluuno.anagrafica.dto.PersonaDTO;
 import com.alessiomaddaluuno.anagrafica.dto.SearchPersonaDTO;
-import com.alessiomaddaluuno.anagrafica.model.Persona;
 import com.alessiomaddaluuno.anagrafica.resource.PersonaResource;
 import com.alessiomaddaluuno.anagrafica.service.PersonaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.websocket.server.PathParam;
-import java.util.List;
 
 @RestController
 @RequestMapping("/persona")

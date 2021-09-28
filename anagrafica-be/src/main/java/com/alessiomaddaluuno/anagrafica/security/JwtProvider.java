@@ -1,9 +1,8 @@
 package com.alessiomaddaluuno.anagrafica.security;
 
+import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.impl.JWTParser;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.apache.commons.lang3.time.DateUtils;
 
@@ -12,8 +11,6 @@ import java.util.Map;
 
 
 public class JwtProvider {
-
-
 
     public static String createJwt(String subject, Map<String,String> payloadClaims) {
 

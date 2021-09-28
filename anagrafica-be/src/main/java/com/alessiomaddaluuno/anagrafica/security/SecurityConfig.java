@@ -8,12 +8,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter  {
-
 
     static protected String secret = "Secret";
     static protected String param = "Authorization";

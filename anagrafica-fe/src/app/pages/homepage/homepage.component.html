@@ -8,7 +8,7 @@
           <div *ngIf="loginErrors.length" class="alert alert-danger" role="alert">
             {{ loginErrors }}
           </div>
-          <form class="mb-5" [formGroup]='accediForm' (ngSubmit)='onLogin()'>
+          <form class="mb-5" [formGroup]="accediForm" (ngSubmit)="onLogin()">
             <div class="mb-3">
               <label for="loginUsername" class="form-label">Username</label>
               <input formControlName="username" type="text" class="form-control" id="loginUsername">
