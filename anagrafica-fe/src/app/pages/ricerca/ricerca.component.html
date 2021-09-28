@@ -1,0 +1,84 @@
+
+<app-header></app-header>
+<div class="container p-3">
+  <h2>Ricerca</h2>
+  <hr>
+
+  <section>
+    <form (ngSubmit)="onSearch()" [formGroup]="formRicerca">
+
+      <div class="row">
+
+        <div class="mb-3 col-sm-4">
+          <label for="inputNome" class="form-label">Nome</label>
+          <input formControlName="nome" type="text" class="form-control" id="inputNome">
+        </div>
+
+        <div class="mb-3 col-sm-4">
+          <label for="inputCognome" class="form-label">Cognome</label>
+          <input formControlName="cognome" type="text" class="form-control" id="inputCognome">
+        </div>
+
+        <div class="mb-3 col-sm-4">
+          <label for="inputEtaMin" class="form-label">Età Minima</label>
+          <input formControlName="etaMin" type="number" class="form-control" id="inputEtaMin">
+        </div>
+
+        <div class="mb-3 col-sm-4">
+          <label for="inputEtaMax" class="form-label">Età Massima</label>
+          <input formControlName="etaMax" type="number" class="form-control" id="inputEtaMax">
+        </div>
+
+        <div class="mb-3 col-sm-4">
+          <label for="inputCitta" class="form-label">Città</label>
+          <input formControlName="citta" type="text" class="form-control" id="inputCitta">
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="mb-3 col-sm-4">
+          <button type="submit" class="btn btn-primary btn-block" [disabled] = "formRicerca.invalid">Applica</button>
+        </div>
+        <div class="mb-3 col-sm-4">
+          <button (click)="onReset()" class="btn btn-secondary btn-block">Reset</button>
+        </div>
+      </div>
+
+
+
+    </form>
+  </section>
+
+  <div *ngIf="!data.length" class="alert alert-secondary m-3 center" role="alert">
+    Non sono presenti dati con questi criteri di ricerca!
+  </div>
+
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">Cognome</th>
+        <th scope="col">Età</th>
+        <th scope="col">Città</th>
+        <th class="text-center" scope="col">Modifica</th>
+        <th class="text-center" scope="col">Elimina</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let persona of data">
+        <td>{{ persona.nome }}</td>
+        <td>{{ persona.cognome }}</td>
+        <td>{{ persona.eta }}</td>
+        <td>{{ persona.citta }}</td>
+        <td class="text-center">
+          <button (click)="onEdit(persona.id)" class="btn btn-primary"><i class="fas fa-edit"></i></button>
+        </td>
+        <td class="text-center">
+          <button (click)="onDelete(persona.id)" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

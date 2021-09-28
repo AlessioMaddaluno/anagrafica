@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="row p-5">
+
+        <h1>Anagrafica</h1>
+
+        <fieldset>
+          <legend>Accedi</legend>
+          <div *ngIf="loginErrors.length" class="alert alert-danger" role="alert">
+            {{ loginErrors }}
+          </div>
+          <form class="mb-5" [formGroup]='accediForm' (ngSubmit)='onLogin()'>
+            <div class="mb-3">
+              <label for="loginUsername" class="form-label">Username</label>
+              <input formControlName="username" type="text" class="form-control" id="loginUsername">
+            </div>
+            <div class="mb-3">
+              <label for="loginPassword" class="form-label">Password</label>
+              <input formControlName="password" type="password" class="form-control" id="loginPassword">
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="accediForm.invalid" >Accedi</button>
+          </form>
+        </fieldset>
+        <hr>
+        <fieldset>
+          <legend>Registrati</legend>
+          <form [formGroup]='registratiForm' (ngSubmit)='onRegister()'>
+            <div class="mb-3">
+              <label for="registerUsername" class="form-label">Username</label>
+              <input formControlName="username" type="text" class="form-control" id="registerUsername">
+            </div>
+            <div class="mb-3">
+              <label for="registerPassword" class="form-label">Password</label>
+              <input formControlName="password" type="password" class="form-control" id="registerPassword">
+            </div>
+            <div class="mb-3">
+              <label for="registerRpassword" class="form-label">Ripeti Password</label>
+              <input formControlName="rpassword" type="password" class="form-control" id="registerRpassword">
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="registratiForm.invalid" >Registrati</button>
+          </form>
+        </fieldset>
+      </div>
+
+
+  </div>
