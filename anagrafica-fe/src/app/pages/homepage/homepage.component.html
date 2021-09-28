@@ -23,7 +23,7 @@
         <hr>
         <fieldset>
           <legend>Registrati</legend>
-          <form [formGroup]='registratiForm' (ngSubmit)='onRegister()'>
+          <form [formGroup]="registratiForm" (ngSubmit)="onRegister()">
             <div class="mb-3">
               <label for="registerUsername" class="form-label">Username</label>
               <input formControlName="username" type="text" class="form-control" id="registerUsername">

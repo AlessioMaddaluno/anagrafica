@@ -12,6 +12,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
 import { JwtInterceptor } from './utility/jwt.interceptor';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { JwtInterceptor } from './utility/jwt.interceptor';
     RicercaComponent,
     CensimentoComponent,
     ProfiloComponent,
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
