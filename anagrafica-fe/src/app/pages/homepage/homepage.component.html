@@ -23,6 +23,9 @@
         <hr>
         <fieldset>
           <legend>Registrati</legend>
+          <div *ngIf="registerErrors.length" class="alert alert-danger" role="alert">
+            {{ registerErrors }}
+          </div>
           <form [formGroup]="registratiForm" (ngSubmit)="onRegister()">
             <div class="mb-3">
               <label for="registerUsername" class="form-label">Username</label>

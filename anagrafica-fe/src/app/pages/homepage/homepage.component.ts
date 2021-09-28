@@ -42,6 +42,7 @@ export class HomepageComponent implements OnInit {
         this.router.navigate(['ricerca']);
       },(err) => {
          this.loginErrors = [err.error.message]
+         this.accediForm.reset();
       })
 
     }
@@ -50,13 +51,20 @@ export class HomepageComponent implements OnInit {
 
   onRegister(){
     if(this.registratiForm.valid){
-      const registerDTO = {
+      const dto = {
         'username': this.registratiForm.controls.username.value,
         'password': this.registratiForm.controls.password.value
       }
 
-      console.log(registerDTO);
+      this.authService.register(dto).subscribe(() => {
+        this.router.navigate(['ricerca']);
+      }, (err) => {
+        this.registerErrors = [err.error.message]
+        this.accediForm.reset();
+      })
     }
   }
+
+
 
 }
