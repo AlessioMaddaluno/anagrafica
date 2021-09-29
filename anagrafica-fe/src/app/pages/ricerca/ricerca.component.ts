@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Persona } from 'src/app/models/persona.model';
 import { PersonaService } from 'src/app/services/persona.service';
@@ -40,11 +40,11 @@ export class RicercaComponent implements OnInit {
   onSearch(){
     if(this.formRicerca.valid){
       const dto = {
-        nome: this.formRicerca.controls.nome.value,
-        cognome: this.formRicerca.controls.cognome.value,
-        etaMin: this.formRicerca.controls.etaMin.value,
-        etaMax: this.formRicerca.controls.etaMax.value,
-        citta: this.formRicerca.controls.citta.value,
+        nome: this.inputRicercaNome.value,
+        cognome: this.inputRicercaCognome.value,
+        etaMin: this.inputRicercaEtaMin.value,
+        etaMax: this.inputRicercaEtaMax.value,
+        citta: this.inputRicercaCitta.value,
         page: 0,
         pageSize: 999999,
         sortBy: 'id',
@@ -61,6 +61,26 @@ export class RicercaComponent implements OnInit {
   onReset() {
     this.formRicerca.reset();
     this.onSearch();
+  }
+
+  get inputRicercaNome() :AbstractControl{
+    return this.formRicerca.get('nome')!
+  }
+
+  get inputRicercaCognome() :AbstractControl{
+    return this.formRicerca.get('cognome')!
+  }
+
+  get inputRicercaEtaMin() :AbstractControl{
+    return this.formRicerca.get('etaMin')!
+  }
+
+  get inputRicercaEtaMax() :AbstractControl{
+    return this.formRicerca.get('etaMax')!
+  }
+
+  get inputRicercaCitta() :AbstractControl{
+    return this.formRicerca.get('citta')!
   }
 
 }
