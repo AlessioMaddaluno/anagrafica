@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Persona } from 'src/app/models/persona.model';
 import { PersonaService } from 'src/app/services/persona.service';
@@ -12,8 +12,8 @@ import { PersonaService } from 'src/app/services/persona.service';
 export class RicercaComponent implements OnInit {
 
   data: Persona[] = []
+  currentPage:number = 1;
   totalPages:number = 1;
-  currentPage:number = 0;
   pageSize:number = 5;
 
   formRicerca = this.formBuilder.group({
@@ -23,8 +23,6 @@ export class RicercaComponent implements OnInit {
     etaMax: [''],
     citta: ['', [Validators.pattern("^[a-zA-Z ]*$")]]
   });
-
-  searchParams: any 
 
   constructor(private personaService:PersonaService,private formBuilder:FormBuilder, private router:Router) { }
 
@@ -44,30 +42,27 @@ export class RicercaComponent implements OnInit {
 
   onSearch(page?:number){
 
-    console.log(page,this.totalPages)
+    if(page !== undefined && (page >= 0 || page === this.totalPages)){
+      this.currentPage = page;
+    }
 
     if(this.formRicerca.valid){
-
-      this.searchParams = {
-        nome: this.formRicerca.controls.nome.value,
-        cognome: this.formRicerca.controls.cognome.value,
-        etaMin: this.formRicerca.controls.etaMin.value,
-        etaMax: this.formRicerca.controls.etaMax.value,
-        citta: this.formRicerca.controls.citta.value,
+      const searchParams = {
+        nome: this.inputRicercaNome.value,
+        cognome: this.inputRicercaCognome.value,
+        etaMin: this.inputRicercaEtaMin.value,
+        etaMax: this.inputRicercaEtaMax.value,
+        citta: this.inputRicercaCitta.value,
         page: this.currentPage,
         pageSize: this.pageSize,
         sortBy: 'id',
         sortDirection: 'ASC'
       }
-
-      if(page !== undefined && (page >= 0 || page === this.totalPages)){
-        this.currentPage = page;
-      }
-
-      this.personaService.search(this.searchParams).subscribe(
+      
+      this.personaService.search(searchParams).subscribe(
         (data) => { 
-          this.data = data.content
-          this.totalPages = data.totalPages
+        this.data = data.content
+        this.totalPages = data.totalPages
         }
       )
 
@@ -77,10 +72,30 @@ export class RicercaComponent implements OnInit {
   onReset() {
     this.formRicerca.reset();
     this.onSearch();
-  }
+	}
 
   counter(i:number){
     return new Array(i);
+   }
+	get inputRicercaNome() :AbstractControl{
+    return this.formRicerca.get('nome')!
   }
+
+  get inputRicercaCognome() :AbstractControl{
+    return this.formRicerca.get('cognome')!
+  }
+
+  get inputRicercaEtaMin() :AbstractControl{
+    return this.formRicerca.get('etaMin')!
+  }
+
+  get inputRicercaEtaMax() :AbstractControl{
+    return this.formRicerca.get('etaMax')!
+  }
+
+  get inputRicercaCitta() :AbstractControl{
+    return this.formRicerca.get('citta')!
+  }
+  
 
 }

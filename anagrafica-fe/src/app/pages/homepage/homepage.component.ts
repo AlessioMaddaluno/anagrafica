@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
@@ -34,8 +34,8 @@ export class HomepageComponent implements OnInit {
 
     if(this.accediForm.valid){
       const dto = {
-        'username': this.accediForm.controls.username.value,
-        'password': this.accediForm.controls.password.value
+        'username': this.inputAccessoUsername.value,
+        'password': this.inputAccessoPassword.value
       }
 
       this.authService.signIn(dto).subscribe(() => {
@@ -52,8 +52,8 @@ export class HomepageComponent implements OnInit {
   onRegister(){
     if(this.registratiForm.valid){
       const dto = {
-        'username': this.registratiForm.controls.username.value,
-        'password': this.registratiForm.controls.password.value
+        'username': this.inputRegistrazioneUsername.value,
+        'password': this.inputRegistrazionePassword.value
       }
 
       this.authService.register(dto).subscribe(() => {
@@ -65,6 +65,21 @@ export class HomepageComponent implements OnInit {
     }
   }
 
+  get inputRegistrazioneUsername() :AbstractControl {
+    return this.registratiForm.get('username')!
+  }
+
+  get inputRegistrazionePassword() :AbstractControl {
+    return this.registratiForm.get('password')!
+  }
+
+  get inputAccessoUsername() :AbstractControl {
+    return this.accediForm.get('username')!
+  }
+
+  get inputAccessoPassword() :AbstractControl {
+    return this.accediForm.get('password')!
+  }
 
 
 }

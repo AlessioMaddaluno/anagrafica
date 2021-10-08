@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PersonaService } from 'src/app/services/persona.service';
 
@@ -23,17 +23,16 @@ export class CensimentoComponent implements OnInit {
   ngOnInit(): void {
 
     this.route.queryParams.subscribe((params) => {
-
       if(params.edit){
         this.personaService.getById(params.edit).subscribe((data) => {
-          this.formCensimento.controls.nome.setValue(data.nome);
-          this.formCensimento.controls.cognome.setValue(data.cognome);
-          this.formCensimento.controls.eta.setValue(data.eta);
-          this.formCensimento.controls.citta.setValue(data.citta);
+          this.inputNome.setValue(data.nome);
+          this.inputCognome.setValue(data.cognome);
+          this.inputEta.setValue(data.eta);
+          this.inputCitta.setValue(data.citta);
         })
       }
-
     });
+
   }
 
   onSave(){
@@ -41,10 +40,10 @@ export class CensimentoComponent implements OnInit {
 
       const personaDTO = {
         "id": -1,
-        "nome": this.formCensimento.controls.nome.value,
-        "cognome": this.formCensimento.controls.cognome.value,
-        "eta": this.formCensimento.controls.eta.value,
-        "citta": this.formCensimento.controls.citta.value
+        "nome": this.inputNome.value,
+        "cognome": this.inputCognome.value,
+        "eta": this.inputEta.value,
+        "citta": this.inputCitta.value
       }
 
       if(this.route.snapshot.queryParams.edit){
@@ -61,6 +60,23 @@ export class CensimentoComponent implements OnInit {
 
     }
 
+  }
+
+
+  get inputNome() : AbstractControl{
+    return this.formCensimento.get('nome')!;
+  }
+
+  get inputCognome() : AbstractControl{
+    return this.formCensimento.get('cognome')!;
+  }
+
+  get inputEta() : AbstractControl{
+    return this.formCensimento.get('eta')!;
+  }
+
+  get inputCitta() : AbstractControl{
+    return this.formCensimento.get('citta')!;
   }
 
 
