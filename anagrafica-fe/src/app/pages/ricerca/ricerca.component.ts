@@ -12,6 +12,9 @@ import { PersonaService } from 'src/app/services/persona.service';
 export class RicercaComponent implements OnInit {
 
   data: Persona[] = []
+  totalPages:number = 1;
+  currentPage:number = 0;
+  pageSize:number = 5;
 
   formRicerca = this.formBuilder.group({
     nome: ['', [Validators.pattern("^[a-zA-Z]*$")]],
@@ -20,6 +23,8 @@ export class RicercaComponent implements OnInit {
     etaMax: [''],
     citta: ['', [Validators.pattern("^[a-zA-Z ]*$")]]
   });
+
+  searchParams: any 
 
   constructor(private personaService:PersonaService,private formBuilder:FormBuilder, private router:Router) { }
 
@@ -37,22 +42,33 @@ export class RicercaComponent implements OnInit {
     this.router.navigate(['/censimento'], { queryParams: { edit: id } });
   }
 
-  onSearch(){
+  onSearch(page?:number){
+
+    console.log(page,this.totalPages)
+
     if(this.formRicerca.valid){
-      const dto = {
+
+      this.searchParams = {
         nome: this.formRicerca.controls.nome.value,
         cognome: this.formRicerca.controls.cognome.value,
         etaMin: this.formRicerca.controls.etaMin.value,
         etaMax: this.formRicerca.controls.etaMax.value,
         citta: this.formRicerca.controls.citta.value,
-        page: 0,
-        pageSize: 999999,
+        page: this.currentPage,
+        pageSize: this.pageSize,
         sortBy: 'id',
         sortDirection: 'ASC'
       }
 
-      this.personaService.search(dto).subscribe(
-        (data) => { this.data = data.content}
+      if(page !== undefined && (page >= 0 || page === this.totalPages)){
+        this.currentPage = page;
+      }
+
+      this.personaService.search(this.searchParams).subscribe(
+        (data) => { 
+          this.data = data.content
+          this.totalPages = data.totalPages
+        }
       )
 
     }
@@ -61,6 +77,10 @@ export class RicercaComponent implements OnInit {
   onReset() {
     this.formRicerca.reset();
     this.onSearch();
+  }
+
+  counter(i:number){
+    return new Array(i);
   }
 
 }

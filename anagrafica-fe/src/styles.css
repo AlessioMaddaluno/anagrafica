@@ -2,3 +2,7 @@ body {
   background-color:var(--bs-light);
 }
 
+
+a:hover {
+  cursor: pointer;
+}
