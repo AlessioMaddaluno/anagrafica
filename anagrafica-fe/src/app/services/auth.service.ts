@@ -14,7 +14,7 @@ export class AuthService {
   constructor(private http: HttpClient,private router:Router) {}
 
   signIn(dto : any){
-    let url = 'http://localhost:8080/auth/accedi'
+    let url = '/api/auth/accedi'
     return this.http.post(url,dto,{observe: 'response'})
     .pipe(map(res => {
       const JWT_TOKEN = res.headers.get('Authorization')?.replace('Bearer ','').trim();
@@ -24,7 +24,7 @@ export class AuthService {
   }
 
   register(dto : any){
-    let url = 'http://localhost:8080/auth/registrati'
+    let url = '/api/auth/registrati'
     return this.http.post(url,dto,{observe: 'response'})
     .pipe(map(res => {
       const JWT_TOKEN = res.headers.get('Authorization')?.replace('Bearer ','').trim();
@@ -34,7 +34,7 @@ export class AuthService {
   }
 
   getMe(){
-    let url = 'http://localhost:8080/auth/me'
+    let url = '/api/auth/me'
     return this.http.get(url)
   }
 

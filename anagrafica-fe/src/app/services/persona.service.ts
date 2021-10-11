@@ -10,23 +10,23 @@ export class PersonaService {
   constructor(private http: HttpClient) { }
 
   search(dto : any) {
-    return this.http.post<any>("http://localhost:8080/persona/search",dto)
+    return this.http.post<any>("/api/persona/search",dto)
   }
 
   deleteById(id:number){
-    return this.http.delete<any>(`http://localhost:8080/persona/${id}`)
+    return this.http.delete<any>(`/api/persona/${id}`)
   }
 
   save(dto: Persona){
-    return this.http.post<any>('http://localhost:8080/persona/',dto);
+    return this.http.post<any>('/api/persona/',dto);
   }
 
   getById(id:number){
-    return this.http.get<any>(`http://localhost:8080/persona/${id}`)
+    return this.http.get<any>(`/api/persona/${id}`)
   }
 
   update(id:number,dto:Persona){
-    return this.http.put<any>(`http://localhost:8080/persona/${id}`,dto);
+    return this.http.put<any>(`/api/persona/${id}`,dto);
   }
 
 }

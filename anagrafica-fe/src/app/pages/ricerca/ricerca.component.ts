@@ -58,9 +58,9 @@ export class RicercaComponent implements OnInit {
         sortBy: 'id',
         sortDirection: 'ASC'
       }
-      
+
       this.personaService.search(searchParams).subscribe(
-        (data) => { 
+        (data) => {
         this.data = data.content
         this.totalPages = data.totalPages
         }
@@ -76,7 +76,8 @@ export class RicercaComponent implements OnInit {
 
   counter(i:number){
     return new Array(i);
-   }
+  }
+
 	get inputRicercaNome() :AbstractControl{
     return this.formRicerca.get('nome')!
   }
@@ -96,6 +97,6 @@ export class RicercaComponent implements OnInit {
   get inputRicercaCitta() :AbstractControl{
     return this.formRicerca.get('citta')!
   }
-  
+
 
 }
