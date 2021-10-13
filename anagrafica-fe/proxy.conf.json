@@ -1,9 +1,9 @@
 {
   "/api/*": {
-    "target": "http://127.0.0.1:8080/anagrafica-api/",
+    "target": "http://127.0.0.1:8080/anagrafica-api",
     "secure": false,
     "pathRewrite": {
-      "^/api/*": ""
+      "^/api/": ""
     },
     "changeOrigin": true
   }
