@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Persona } from 'src/app/models/persona.model';
 import { PersonaService } from 'src/app/services/persona.service';
+import { SpinnerService } from 'src/app/services/spinner.service';
 
 @Component({
   selector: 'app-ricerca',
@@ -24,7 +25,7 @@ export class RicercaComponent implements OnInit {
     citta: ['', [Validators.pattern("^[a-zA-Z ]*$")]]
   });
 
-  constructor(private personaService:PersonaService,private formBuilder:FormBuilder, private router:Router) { }
+  constructor(private personaService:PersonaService,private formBuilder:FormBuilder, private router:Router,private spinnerService:SpinnerService) { }
 
   ngOnInit(): void {
     this.onSearch();
