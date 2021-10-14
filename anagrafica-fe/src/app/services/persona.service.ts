@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { Persona } from '../models/persona.model';
 
 @Injectable({
@@ -10,23 +11,28 @@ export class PersonaService {
   constructor(private http: HttpClient) { }
 
   search(dto : any) {
-    return this.http.post<any>("/api/persona/search",dto)
+    let url = environment.baseApiUrl+"/persona/search";
+    return this.http.post<any>(url,dto)
   }
 
   deleteById(id:number){
-    return this.http.delete<any>(`/api/persona/${id}`)
+    let url = environment.baseApiUrl+`/persona/${id}`;
+    return this.http.delete<any>(url)
   }
 
   save(dto: Persona){
-    return this.http.post<any>('/api/persona/',dto);
+    let url = environment.baseApiUrl+'/persona/';
+    return this.http.post<any>(url,dto);
   }
 
   getById(id:number){
-    return this.http.get<any>(`/api/persona/${id}`)
+    let url = environment.baseApiUrl+`/persona/${id}`;
+    return this.http.get<any>(url)
   }
 
   update(id:number,dto:Persona){
-    return this.http.put<any>(`/api/persona/${id}`,dto);
+    let url = environment.baseApiUrl+`/persona/${id}`;
+    return this.http.put<any>(url,dto);
   }
 
 }

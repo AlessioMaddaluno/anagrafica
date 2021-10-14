@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class AuthService {
   constructor(private http: HttpClient,private router:Router) {}
 
   signIn(dto : any){
-    let url = '/api/auth/accedi'
+    let url = environment.baseApiUrl+'/auth/accedi'
     return this.http.post(url,dto,{observe: 'response'})
     .pipe(map(res => {
       const JWT_TOKEN = res.headers.get('Authorization')?.replace('Bearer ','').trim();
@@ -24,7 +25,7 @@ export class AuthService {
   }
 
   register(dto : any){
-    let url = '/api/auth/registrati'
+    let url = environment.baseApiUrl+'/auth/registrati'
     return this.http.post(url,dto,{observe: 'response'})
     .pipe(map(res => {
       const JWT_TOKEN = res.headers.get('Authorization')?.replace('Bearer ','').trim();
@@ -34,7 +35,7 @@ export class AuthService {
   }
 
   getMe(){
-    let url = '/api/auth/me'
+    let url = environment.baseApiUrl+'/auth/me'
     return this.http.get(url)
   }
 
