@@ -1,11 +1,13 @@
 package it.alessiomaddaluno.anagrafica.dto;
 
+import java.time.LocalDateTime;
+
 public class SearchPersonaDTO {
 
     private String nome;
     private String cognome;
-    private Integer etaMin;
-    private Integer etaMax;
+    private LocalDateTime dataNascitaMin;
+    private LocalDateTime dataNascitaMax;
     private String citta;
 
     private Integer page;
@@ -33,20 +35,20 @@ public class SearchPersonaDTO {
         this.cognome = cognome;
     }
 
-    public Integer getEtaMin() {
-        return etaMin;
+    public LocalDateTime getDataNascitaMin() {
+        return dataNascitaMin;
     }
 
-    public void setEtaMin(Integer etaMin) {
-        this.etaMin = etaMin;
+    public void setDataNascitaMin(LocalDateTime dataNascitaMin) {
+        this.dataNascitaMin = dataNascitaMin;
     }
 
-    public Integer getEtaMax() {
-        return etaMax;
+    public LocalDateTime getDataNascitaMax() {
+        return dataNascitaMax;
     }
 
-    public void setEtaMax(Integer etaMax) {
-        this.etaMax = etaMax;
+    public void setDataNascitaMax(LocalDateTime dataNascitaMax) {
+        this.dataNascitaMax = dataNascitaMax;
     }
 
     public String getCitta() {

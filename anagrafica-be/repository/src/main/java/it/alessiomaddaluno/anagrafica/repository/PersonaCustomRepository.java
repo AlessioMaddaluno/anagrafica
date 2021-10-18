@@ -59,7 +59,7 @@ public class PersonaCustomRepository {
         CriteriaQuery<Persona> criteriaQuery_select = criteriaQuery.select(
                 criteriaBuilder.construct(
                         Persona.class,
-                        root.get("id"),root.get("nome"),root.get("cognome"),root.get("eta"),root.get("citta"))
+                        root.get("id"),root.get("nome"),root.get("cognome"),root.get("dataNascita"),root.get("citta"))
         ).where(predicates).orderBy(orders);
 
         // Creo una typed query a pratire dalla blueprint definita dalla criteria query
@@ -104,13 +104,13 @@ public class PersonaCustomRepository {
         }
 
 
-        if(filter.getEtaMin() != null){
-            Predicate predicate_min = criteriaBuilder.greaterThanOrEqualTo(root.get("eta"),filter.getEtaMin());
+        if(filter.getDataNascitaMin() != null){
+            Predicate predicate_min = criteriaBuilder.greaterThanOrEqualTo(root.get("dataNascita"),filter.getDataNascitaMin());
             predicates.add(predicate_min);
         }
 
-        if(filter.getEtaMax() != null){
-            Predicate predicate_max = criteriaBuilder.lessThanOrEqualTo(root.get("eta"),filter.getEtaMax());
+        if(filter.getDataNascitaMax() != null){
+            Predicate predicate_max = criteriaBuilder.lessThanOrEqualTo(root.get("dataNascita"),filter.getDataNascitaMax());
             predicates.add(predicate_max);
         }
 
@@ -139,7 +139,7 @@ public class PersonaCustomRepository {
         resource.setId(model.getId());
         resource.setNome(model.getNome());
         resource.setCognome(model.getCognome());
-        resource.setEta(model.getEta());
+        resource.setDataNascita(model.getDataNascita());
         resource.setCitta(model.getCitta());
         return resource;
     }

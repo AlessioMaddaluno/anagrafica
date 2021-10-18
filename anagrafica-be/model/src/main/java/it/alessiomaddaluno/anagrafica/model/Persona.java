@@ -1,6 +1,7 @@
 package it.alessiomaddaluno.anagrafica.model;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity(name = "PERSONA")
 public class Persona {
@@ -15,8 +16,8 @@ public class Persona {
     @Column(name = "COGNOME",nullable = false)
     private String cognome;
 
-    @Column(name = "ETA",nullable = false)
-    private Integer eta;
+    @Column(name = "DATA_NASCITA",nullable = false)
+    private LocalDateTime dataNascita;
 
     @Column(name = "CITTA",nullable = false)
     private String citta;
@@ -24,11 +25,11 @@ public class Persona {
     public Persona() {
     }
 
-    public Persona(Long id, String nome, String cognome, Integer eta, String citta) {
+    public Persona(Long id, String nome, String cognome, LocalDateTime dataNascita, String citta) {
         this.id = id;
         this.nome = nome;
         this.cognome = cognome;
-        this.eta = eta;
+        this.dataNascita = dataNascita;
         this.citta = citta;
     }
 
@@ -56,12 +57,12 @@ public class Persona {
         this.cognome = cognome;
     }
 
-    public Integer getEta() {
-        return eta;
+    public LocalDateTime getDataNascita() {
+        return dataNascita;
     }
 
-    public void setEta(Integer eta) {
-        this.eta = eta;
+    public void setDataNascita(LocalDateTime dataNascita) {
+        this.dataNascita = dataNascita;
     }
 
     public String getCitta() {

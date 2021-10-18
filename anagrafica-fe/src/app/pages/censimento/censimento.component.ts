@@ -14,7 +14,7 @@ export class CensimentoComponent implements OnInit {
   formCensimento = this.formBuilder.group({
     nome: ['',[Validators.required,Validators.minLength(4),Validators.maxLength(8),Validators.pattern("^[a-zA-Z]*$")]],
     cognome: ['',[Validators.required,Validators.minLength(4),Validators.maxLength(10),Validators.pattern("^[a-zA-Z]*$")]],
-    eta: ['',[Validators.required,Validators.min(18),Validators.max(70)]],
+    dataNascita: ['',[Validators.required]],
     citta: ['',[Validators.required,Validators.pattern("^[a-zA-Z ]*$")]]
   });
 
@@ -27,7 +27,7 @@ export class CensimentoComponent implements OnInit {
         this.personaService.getById(params.edit).subscribe((data) => {
           this.inputNome.setValue(data.nome);
           this.inputCognome.setValue(data.cognome);
-          this.inputEta.setValue(data.eta);
+          this.inputDataNascita.setValue(new Date(data.dataNascita).toISOString().slice(0, 10));
           this.inputCitta.setValue(data.citta);
         })
       }
@@ -42,8 +42,8 @@ export class CensimentoComponent implements OnInit {
         "id": -1,
         "nome": this.inputNome.value,
         "cognome": this.inputCognome.value,
-        "eta": this.inputEta.value,
-        "citta": this.inputCitta.value
+        "citta": this.inputCitta.value,
+        "dataNascita": new Date(this.inputDataNascita.value)
       }
 
       if(this.route.snapshot.queryParams.edit){
@@ -71,8 +71,8 @@ export class CensimentoComponent implements OnInit {
     return this.formCensimento.get('cognome')!;
   }
 
-  get inputEta() : AbstractControl{
-    return this.formCensimento.get('eta')!;
+  get inputDataNascita() : AbstractControl{
+    return this.formCensimento.get('dataNascita')!;
   }
 
   get inputCitta() : AbstractControl{

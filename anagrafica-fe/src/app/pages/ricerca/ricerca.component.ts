@@ -13,15 +13,15 @@ import { SpinnerService } from 'src/app/services/spinner.service';
 export class RicercaComponent implements OnInit {
 
   data: Persona[] = []
-  currentPage:number = 1;
+  currentPage:number = 0;
   totalPages:number = 1;
   pageSize:number = 5;
 
   formRicerca = this.formBuilder.group({
     nome: ['', [Validators.pattern("^[a-zA-Z]*$")]],
     cognome: ['', [Validators.pattern("^[a-zA-Z]*$")]],
-    etaMin: [''],
-    etaMax: [''],
+    dataNascitaMin: [''],
+    dataNascitaMax: [''],
     citta: ['', [Validators.pattern("^[a-zA-Z ]*$")]]
   });
 
@@ -48,12 +48,16 @@ export class RicercaComponent implements OnInit {
     }
 
     if(this.formRicerca.valid){
+
+      let dataNascitaMin = (this.inputDataNascitaMin.value) ? new Date(this.inputDataNascitaMin.value) : null;
+      let dataNascitaMax = (this.inputDataNascitaMax.value) ? new Date(this.inputDataNascitaMax.value) : null;
+
       const searchParams = {
         nome: this.inputRicercaNome.value,
         cognome: this.inputRicercaCognome.value,
-        etaMin: this.inputRicercaEtaMin.value,
-        etaMax: this.inputRicercaEtaMax.value,
         citta: this.inputRicercaCitta.value,
+        dataNascitaMin: dataNascitaMin,
+        dataNascitaMax: dataNascitaMax,
         page: this.currentPage,
         pageSize: this.pageSize,
         sortBy: 'id',
@@ -87,16 +91,16 @@ export class RicercaComponent implements OnInit {
     return this.formRicerca.get('cognome')!
   }
 
-  get inputRicercaEtaMin() :AbstractControl{
-    return this.formRicerca.get('etaMin')!
-  }
-
-  get inputRicercaEtaMax() :AbstractControl{
-    return this.formRicerca.get('etaMax')!
-  }
-
   get inputRicercaCitta() :AbstractControl{
     return this.formRicerca.get('citta')!
+  }
+
+  get inputDataNascitaMax(): AbstractControl{
+    return this.formRicerca.get('dataNascitaMax')!;
+  }
+
+  get inputDataNascitaMin(): AbstractControl{
+    return this.formRicerca.get('dataNascitaMin')!;
   }
 
 

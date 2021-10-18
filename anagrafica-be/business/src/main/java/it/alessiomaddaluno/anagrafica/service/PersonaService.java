@@ -73,7 +73,7 @@ public class PersonaService {
         Persona model = new Persona();
         model.setNome(dto.getNome());
         model.setCognome(dto.getCognome());
-        model.setEta(dto.getEta());
+        model.setDataNascita(dto.getDataNascita());
         model.setCitta(dto.getCitta());
         return model;
     }
@@ -85,7 +85,7 @@ public class PersonaService {
         resource.setId(model.getId());
         resource.setNome(model.getNome());
         resource.setCognome(model.getCognome());
-        resource.setEta(model.getEta());
+        resource.setDataNascita(model.getDataNascita());
         resource.setCitta(model.getCitta());
 
         return resource;

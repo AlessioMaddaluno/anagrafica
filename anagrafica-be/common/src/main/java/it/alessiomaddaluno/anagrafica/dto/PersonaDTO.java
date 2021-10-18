@@ -1,10 +1,16 @@
 package it.alessiomaddaluno.anagrafica.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.time.LocalDateTime;
+
 public class PersonaDTO {
 
     private String nome;
     private String cognome;
-    private Integer eta;
+
+    private LocalDateTime dataNascita;
+
     private String citta;
 
     public PersonaDTO() {
@@ -26,12 +32,12 @@ public class PersonaDTO {
         this.cognome = cognome;
     }
 
-    public Integer getEta() {
-        return eta;
+    public LocalDateTime getDataNascita() {
+        return dataNascita;
     }
 
-    public void setEta(Integer eta) {
-        this.eta = eta;
+    public void setDataNascita(LocalDateTime dataNascita) {
+        this.dataNascita = dataNascita;
     }
 
     public String getCitta() {
