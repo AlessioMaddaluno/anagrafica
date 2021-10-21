@@ -77,6 +77,7 @@ export class RicercaComponent implements OnInit {
   onReset() {
     this.formRicerca.reset();
     this.onSearch();
+    this.currentPage = 0;
 	}
 
   counter(i:number){

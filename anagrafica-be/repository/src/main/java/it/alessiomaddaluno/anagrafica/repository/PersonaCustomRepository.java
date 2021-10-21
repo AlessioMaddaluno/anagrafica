@@ -10,13 +10,17 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import it.alessiomaddaluno.anagrafica.resource.PersonaResource;
+import org.springframework.util.CollectionUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class PersonaCustomRepository {
@@ -24,113 +28,95 @@ public class PersonaCustomRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public Page<PersonaResource> search(SearchPersonaDTO dto){
+    public Page<PersonaResource> search(SearchPersonaDTO filters){
 
-        // Oggetto che gestisce la paginazione
-        Pageable pageable = PageRequest.of(dto.getPage(),dto.getPageSize());
+        Pageable pageable = PageRequest.of(filters.getPage(),filters.getPageSize());
 
-        // Le criteria query si creano attraverso un builder in quanto
-        // sono oggetti piuttosto complessi. L'utilizzo del pattern builder
-        // ne facilità la creazione
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        Query countQuery = this.applyCriteria(this.getCountQuery(),filters);
+        long totalRows = (Long) countQuery.getSingleResult();
 
+        Query selectQuery = this.applyCriteria(this.getSelectQuery(),filters);
+        selectQuery.setFirstResult(filters.getPageSize()*filters.getPage());
+        selectQuery.setMaxResults(filters.getPageSize());
 
-        // Count per totalPages
-        CriteriaQuery<Long> countCriteria = criteriaBuilder.createQuery(Long.class);
-        Root<Persona> countRoot = countCriteria.from(Persona.class);
-        Predicate[] predicates_count = this.createPredicate(criteriaBuilder,countRoot,dto);
-        countCriteria = countCriteria.select(criteriaBuilder.count(countRoot)).where(predicates_count);
-        long totalRow = this.entityManager.createQuery(countCriteria).getSingleResult();
-
-        // Creo una Criteria query a partire dalla classe su cui deve essere mappato
-        // il risultato finale
-        CriteriaQuery<Persona> criteriaQuery = criteriaBuilder.createQuery(Persona.class);
-
-        // Identifico la root della query, ovvero la tabella "principale"
-        Root<Persona> root = criteriaQuery.from(Persona.class);
-
-        // Imposto i predicati della query nonché le where condition e le eventuali join
-        Predicate[] predicates = this.createPredicate(criteriaBuilder,root,dto);
-
-        // Imposto il sort
-        List<Order> orders = this.createSort(criteriaBuilder,root,dto.getSortBy(),dto.getSortDirection());
-
-        // Imposto i predicati e il sort
-        CriteriaQuery<Persona> criteriaQuery_select = criteriaQuery.select(
-                criteriaBuilder.construct(
-                        Persona.class,
-                        root.get("id"),root.get("nome"),root.get("cognome"),root.get("dataNascita"),root.get("citta"))
-        ).where(predicates).orderBy(orders);
-
-        // Creo una typed query a pratire dalla blueprint definita dalla criteria query
-        TypedQuery<Persona> typedQuery = entityManager.createQuery(criteriaQuery_select);
-
-        // Imposto l'offset dei record (il numero della pagina) e il numero di elementi massimi che voglio (il pageSize)
-        typedQuery.setFirstResult((int)pageable.getOffset());
-        typedQuery.setMaxResults(pageable.getPageSize());
-
-        // Fetcho i risultati
-        List<Persona> result = typedQuery.getResultList();
+        List<Persona> models = selectQuery.getResultList();
 
         List<PersonaResource> resources = new ArrayList<>();
-        for( Persona p : result){
-            resources.add(this.assembler(p));
+        if(!models.isEmpty()){
+            for(Persona model : models){
+                resources.add(this.assembler(model));
+            }
         }
-
         //Inserisco quello che ho ottenuto all'interno di un oggetto page
-        Page<PersonaResource> page = new PageImpl<>(resources, pageable, totalRow);
+        Page<PersonaResource> page = new PageImpl<>(resources, pageable, totalRows);
 
         return page;
-
     }
 
-    private Predicate[] createPredicate(CriteriaBuilder criteriaBuilder,Root<Persona> root,SearchPersonaDTO filter){
+    private Query applyCriteria(String baseQuery,SearchPersonaDTO filter){
 
-        List<Predicate> predicates = new ArrayList<>();
+        Map<String,Object> params = new HashMap<>();
 
-        if(StringUtils.isNotBlank(filter.getNome())){
-            Predicate predicate_like = criteriaBuilder.like(root.get("nome"),filter.getNome());
-            predicates.add(predicate_like);
+        String query = baseQuery;
+        String whereAnd = " WHERE ";
+
+        // filtro nome
+        if(StringUtils.isNotEmpty(filter.getNome())){
+            params.put("nome",filter.getNome());
+            query += whereAnd + "lower(p.nome) LIKE lower(concat('%',:nome,'%'))";
+            whereAnd = " AND ";
         }
 
-        if(StringUtils.isNotBlank(filter.getCognome())){
-            Predicate predicate_like = criteriaBuilder.like(root.get("cognome"),filter.getCognome());
-            predicates.add(predicate_like);
+        // filtro cognome
+        if(StringUtils.isNotEmpty(filter.getCognome())){
+            params.put("cognome",filter.getCognome());
+            query += whereAnd + "lower(p.cognome) LIKE lower(concat('%',:cognome,'%'))";
+            whereAnd = " AND ";
         }
 
-        if(StringUtils.isNotBlank(filter.getCitta())){
-            Predicate predicate_like = criteriaBuilder.like(root.get("citta"),filter.getCitta());
-            predicates.add(predicate_like);
+        // filtro citta
+        if(StringUtils.isNotEmpty(filter.getCitta())){
+            params.put("citta",filter.getCitta());
+            query += whereAnd + "lower(p.citta) LIKE lower(concat('%',:citta,'%'))";
+            whereAnd = " AND ";
         }
 
-
-        if(filter.getDataNascitaMin() != null){
-            Predicate predicate_min = criteriaBuilder.greaterThanOrEqualTo(root.get("dataNascita"),filter.getDataNascitaMin());
-            predicates.add(predicate_min);
+        // filtro data di nascita
+        if(filter.getDataNascitaMin() != null && filter.getDataNascitaMax() != null){
+            params.put("dataNascitaMin",filter.getDataNascitaMin());
+            params.put("dataNascitaMax", filter.getDataNascitaMax());
+            query += whereAnd + "p.dataNascita >= :dataNascitaMin AND p.dataNascita <= :dataNascitaMax";
+            whereAnd = " AND ";
         }
 
-        if(filter.getDataNascitaMax() != null){
-            Predicate predicate_max = criteriaBuilder.lessThanOrEqualTo(root.get("dataNascita"),filter.getDataNascitaMax());
-            predicates.add(predicate_max);
-        }
-
-        Predicate[] predArray = new Predicate[predicates.size()];
-        predicates.toArray(predArray);
-        return predArray;
-    }
-
-    private List<Order> createSort(CriteriaBuilder criteriaBuilder, Root<Persona> root,String sortProperty, String sortDirection){
-
-        List<Order> orders = new ArrayList<>();
-
-        if(sortDirection.equals("ASC")){
-            orders.add(criteriaBuilder.asc(root.get(sortProperty)));
-        }
         else {
-            orders.add(criteriaBuilder.desc(root.get(sortProperty)));
+            if (filter.getDataNascitaMax() != null){
+                params.put("dataNascitaMax", filter.getDataNascitaMax());
+                query += whereAnd + "p.dataNascita <= :dataNascitaMax ";
+                whereAnd = " AND ";
+            }
+            if(filter.getDataNascitaMin() != null){
+                params.put("dataNascitaMin",filter.getDataNascitaMin());
+                query += whereAnd + "p.dataNascita >= :dataNascitaMin";
+                whereAnd = " AND ";
+            }
         }
 
-        return orders;
+        Query q = this.entityManager.createQuery(query);
+
+        for (Map.Entry<String, Object> param : params.entrySet()) {
+           q.setParameter(param.getKey(),param.getValue());
+        }
+
+        return q;
+    }
+
+    private String getSelectQuery(){
+        return "SELECT p FROM PERSONA p";
+    }
+
+    private String getCountQuery(){
+        return "SELECT COUNT(p) FROM PERSONA p";
     }
 
     // it.alessiomaddaluno.anagrafica.model -> it.alessiomaddaluno.anagrafica.resource

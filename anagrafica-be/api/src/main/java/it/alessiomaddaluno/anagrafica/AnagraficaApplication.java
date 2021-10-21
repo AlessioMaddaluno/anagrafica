@@ -16,7 +16,7 @@ import org.springframework.context.annotation.ComponentScan;
 		"it.alessiomaddaluno.anagrafica.repository",
 		"it.alessiomaddaluno.anagrafica.common.exception",
 		"it.alessiomaddaluno.anagrafica.security"})
-@EntityScan(basePackages = {"it.alessiomaddaluno.anagrafica.model"})
+@EntityScan(basePackages = "it.alessiomaddaluno.anagrafica.model")
 public class AnagraficaApplication  extends SpringBootServletInitializer {
 
 	private static Class<AnagraficaApplication> applicationClass = AnagraficaApplication.class;
