@@ -6,12 +6,12 @@ import it.alessiomaddaluno.anagrafica.dto.SignUpDTO;
 import it.alessiomaddaluno.anagrafica.exception.AnagraficaException;
 import it.alessiomaddaluno.anagrafica.model.Utente;
 import it.alessiomaddaluno.anagrafica.repository.UtenteRepository;
+import it.alessiomaddaluno.anagrafica.resource.UtenteResource;
+import it.alessiomaddaluno.anagrafica.security.JwtProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import it.alessiomaddaluno.anagrafica.resource.UtenteResource;
-import it.alessiomaddaluno.anagrafica.security.JwtProvider;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -3,20 +3,17 @@ package it.alessiomaddaluno.anagrafica.repository;
 
 import it.alessiomaddaluno.anagrafica.dto.SearchPersonaDTO;
 import it.alessiomaddaluno.anagrafica.model.Persona;
+import it.alessiomaddaluno.anagrafica.resource.PersonaResource;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
-import it.alessiomaddaluno.anagrafica.resource.PersonaResource;
-import org.springframework.util.CollectionUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

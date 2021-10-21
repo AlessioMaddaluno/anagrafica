@@ -2,15 +2,15 @@ package it.alessiomaddaluno.anagrafica.controller;
 
 import it.alessiomaddaluno.anagrafica.dto.SignInDTO;
 import it.alessiomaddaluno.anagrafica.dto.SignUpDTO;
+import it.alessiomaddaluno.anagrafica.resource.TokenResource;
+import it.alessiomaddaluno.anagrafica.resource.UtenteResource;
+import it.alessiomaddaluno.anagrafica.security.JwtConfiguration;
+import it.alessiomaddaluno.anagrafica.service.AuthService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import it.alessiomaddaluno.anagrafica.resource.TokenResource;
-import it.alessiomaddaluno.anagrafica.resource.UtenteResource;
-import it.alessiomaddaluno.anagrafica.security.JwtConfiguration;
-import it.alessiomaddaluno.anagrafica.service.AuthService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
