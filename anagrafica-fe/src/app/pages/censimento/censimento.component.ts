@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PersonaService } from 'src/app/services/persona.service';
+import { PersonaService } from 'src/app/core/services/persona.service';
+
 
 @Component({
   selector: 'app-censimento',

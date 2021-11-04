@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Persona } from 'src/app/models/persona.model';
-import { PersonaService } from 'src/app/services/persona.service';
-import { SpinnerService } from 'src/app/services/spinner.service';
+import { PersonaService } from 'src/app/core/services/persona.service';
+import { SpinnerService } from 'src/app/core/services/spinner.service';
+import { Persona } from 'src/app/shared/models/persona.model';
+
 
 @Component({
   selector: 'app-ricerca',

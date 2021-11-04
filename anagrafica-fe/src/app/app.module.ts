@@ -8,12 +8,11 @@ import { RicercaComponent } from './pages/ricerca/ricerca.component';
 import { CensimentoComponent } from './pages/censimento/censimento.component';
 import { ProfiloComponent } from './pages/profilo/profilo.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HeaderComponent } from './components/header/header.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
-import { JwtInterceptor } from './utility/jwt.interceptor';
-import { FooterComponent } from './components/footer/footer.component';
-import { SpinnerComponent } from './components/spinner/spinner.component';
+import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
+import { JwtInterceptor } from './core/utility/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -21,16 +20,15 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     HomepageComponent,
     RicercaComponent,
     CensimentoComponent,
-    ProfiloComponent,
-    HeaderComponent,
-    FooterComponent,
-    SpinnerComponent
+    ProfiloComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    CoreModule,
+    SharedModule
   ],
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
