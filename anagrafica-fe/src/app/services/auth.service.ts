@@ -12,14 +12,17 @@ export class AuthService {
 
   jwtHelper:JwtHelperService = new JwtHelperService();
 
+  private JWT_TOKEN_LOCAL_STORAGE = "JWT_TOKEN"
+  private AUTHORIZATION_HEADER = 'Authorization'
+
   constructor(private http: HttpClient,private router:Router) {}
 
   signIn(dto : any){
     let url = environment.baseApiUrl+'/auth/accedi'
     return this.http.post(url,dto,{observe: 'response'})
     .pipe(map(res => {
-      const JWT_TOKEN = res.headers.get('Authorization')?.replace('Bearer ','').trim();
-      localStorage.setItem('JWT_TOKEN',JWT_TOKEN!)
+      const JWT_TOKEN = res.headers.get(this.AUTHORIZATION_HEADER)?.replace('Bearer ','').trim();
+      localStorage.setItem(this.JWT_TOKEN_LOCAL_STORAGE,JWT_TOKEN!)
       return res;
     }));
   }
@@ -28,8 +31,8 @@ export class AuthService {
     let url = environment.baseApiUrl+'/auth/registrati'
     return this.http.post(url,dto,{observe: 'response'})
     .pipe(map(res => {
-      const JWT_TOKEN = res.headers.get('Authorization')?.replace('Bearer ','').trim();
-      localStorage.setItem('JWT_TOKEN',JWT_TOKEN!)
+      const JWT_TOKEN = res.headers.get(this.AUTHORIZATION_HEADER)?.replace('Bearer ','').trim();
+      localStorage.setItem(this.JWT_TOKEN_LOCAL_STORAGE,JWT_TOKEN!)
       return res;
     }));
   }
@@ -40,12 +43,12 @@ export class AuthService {
   }
 
   logout(){
-    localStorage.removeItem('JWT_TOKEN');
+    localStorage.removeItem(this.JWT_TOKEN_LOCAL_STORAGE);
     this.router.navigate(['']);
   }
 
   isAuthenticated(){
-    const token = localStorage.getItem('JWT_TOKEN');
+    const token = localStorage.getItem(this.JWT_TOKEN_LOCAL_STORAGE);
     return token && !this.jwtHelper.isTokenExpired(token);
   }
 
