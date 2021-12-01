@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RicercaComponent } from './ricerca/ricerca.component';
 import { RicercaRoutingModule } from './ricerca.routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 
@@ -13,7 +14,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     RicercaRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ]
 })
 export class RicercaModule { }

@@ -13,6 +13,7 @@ import { CensimentoModule } from './features/censimento/censimento.module';
 import { HomepageModule } from './features/homepage/homepage.module';
 import { ProfiloModule } from './features/profilo/profilo.module';
 import { RicercaModule } from './features/ricerca/ricerca.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { RicercaModule } from './features/ricerca/ricerca.module';
     CensimentoModule,
     HomepageModule,
     ProfiloModule,
-    RicercaModule
+    RicercaModule,
+    BrowserAnimationsModule
   ],
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },

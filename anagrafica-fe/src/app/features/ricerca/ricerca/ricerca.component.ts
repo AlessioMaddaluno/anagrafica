@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, AbstractControl } from '@angular/forms';
+import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { PersonaService } from 'src/app/core/services/persona.service';
 import { SpinnerService } from 'src/app/core/services/spinner.service';
@@ -16,6 +17,16 @@ export class RicercaComponent implements OnInit {
   currentPage:number = 0;
   totalPages:number = 1;
   pageSize:number = 5;
+  totalElements:number = 0;
+
+  displayedColumns = [
+    'nome',
+    'cognome',
+    'dataNascita',
+    'citta',
+    'edit',
+    'delete'
+  ]
 
   formRicerca = this.formBuilder.group({
     nome: ['', [Validators.pattern("^[a-zA-Z]*$")]],
@@ -66,6 +77,7 @@ export class RicercaComponent implements OnInit {
 
       this.personaService.search(searchParams).subscribe(
         (data) => {
+          this.totalElements = data.totalElements
           this.data = data.content
           this.totalPages = data.totalPages
         }
@@ -79,6 +91,12 @@ export class RicercaComponent implements OnInit {
     this.onSearch();
     this.currentPage = 0;
 	}
+
+  onPageChange(event : PageEvent){
+    this.currentPage = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.onSearch();
+  }
 
   counter(i:number){
     return new Array(i);
