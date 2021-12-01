@@ -1,19 +1,37 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/utility/auth.guard';
-import { CensimentoComponent } from './pages/censimento/censimento.component';
-import { HomepageComponent } from './pages/homepage/homepage.component';
-import { ProfiloComponent } from './pages/profilo/profilo.component';
-import { RicercaComponent } from './pages/ricerca/ricerca.component';
-
+import { CensimentoModule } from './features/censimento/censimento.module';
+import { HomepageModule } from './features/homepage/homepage.module';
+import { ProfiloModule } from './features/profilo/profilo.module';
+import { RicercaModule } from './features/ricerca/ricerca.module';
 
 const routes: Routes = [
-  { path: "", component:RicercaComponent, canActivate:[AuthGuard] },
-  { path: "login", component: HomepageComponent},
-  { path: "profilo", component: ProfiloComponent, canActivate:[AuthGuard]},
-  { path: "censimento", component: CensimentoComponent, canActivate:[AuthGuard]},
-  { path: "ricerca", component: RicercaComponent, canActivate:[AuthGuard]}
-];
+  {
+    path: '',
+    loadChildren: () => import('./features/ricerca/ricerca.module').then( m => RicercaModule),
+    canActivate:[AuthGuard]
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./features/homepage/homepage.module').then( m => HomepageModule)
+  },
+  {
+    path: 'profilo',
+    loadChildren: () => import('./features/profilo/profilo.module').then(m => ProfiloModule),
+    canActivate:[AuthGuard]
+  },
+  {
+    path: 'ricerca',
+    loadChildren: () => import('./features/ricerca/ricerca.module').then( m => RicercaModule),
+    canActivate:[AuthGuard]
+  },
+  {
+    path: 'censimento',
+    loadChildren: () => import('./features/censimento/censimento.module').then( m => CensimentoModule),
+    canActivate:[AuthGuard]
+  }
+]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

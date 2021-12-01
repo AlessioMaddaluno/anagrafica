@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Validators, FormBuilder, AbstractControl } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 import { PersonaService } from 'src/app/core/services/persona.service';
-
 
 @Component({
   selector: 'app-censimento',
@@ -10,7 +9,6 @@ import { PersonaService } from 'src/app/core/services/persona.service';
   styleUrls: ['./censimento.component.css']
 })
 export class CensimentoComponent implements OnInit {
-
 
   formCensimento = this.formBuilder.group({
     nome: ['',[Validators.required,Validators.minLength(4),Validators.maxLength(8),Validators.pattern("^[a-zA-Z]*$")]],
@@ -79,6 +77,5 @@ export class CensimentoComponent implements OnInit {
   get inputCitta() : AbstractControl{
     return this.formCensimento.get('citta')!;
   }
-
 
 }

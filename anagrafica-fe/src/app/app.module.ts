@@ -3,24 +3,20 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomepageComponent } from './pages/homepage/homepage.component';
-import { RicercaComponent } from './pages/ricerca/ricerca.component';
-import { CensimentoComponent } from './pages/censimento/censimento.component';
-import { ProfiloComponent } from './pages/profilo/profilo.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { JwtInterceptor } from './core/utility/jwt.interceptor';
+import { CensimentoModule } from './features/censimento/censimento.module';
+import { HomepageModule } from './features/homepage/homepage.module';
+import { ProfiloModule } from './features/profilo/profilo.module';
+import { RicercaModule } from './features/ricerca/ricerca.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HomepageComponent,
-    RicercaComponent,
-    CensimentoComponent,
-    ProfiloComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +24,11 @@ import { JwtInterceptor } from './core/utility/jwt.interceptor';
     ReactiveFormsModule,
     HttpClientModule,
     CoreModule,
-    SharedModule
+    SharedModule,
+    CensimentoModule,
+    HomepageModule,
+    ProfiloModule,
+    RicercaModule
   ],
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },

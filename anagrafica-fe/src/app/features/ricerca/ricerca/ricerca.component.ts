@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { Validators, FormBuilder, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PersonaService } from 'src/app/core/services/persona.service';
 import { SpinnerService } from 'src/app/core/services/spinner.service';
 import { Persona } from 'src/app/shared/models/persona.model';
-
 
 @Component({
   selector: 'app-ricerca',
@@ -67,8 +66,8 @@ export class RicercaComponent implements OnInit {
 
       this.personaService.search(searchParams).subscribe(
         (data) => {
-        this.data = data.content
-        this.totalPages = data.totalPages
+          this.data = data.content
+          this.totalPages = data.totalPages
         }
       )
 
@@ -104,6 +103,5 @@ export class RicercaComponent implements OnInit {
   get inputDataNascitaMin(): AbstractControl{
     return this.formRicerca.get('dataNascitaMin')!;
   }
-
 
 }
