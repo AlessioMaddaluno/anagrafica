@@ -22,4 +22,11 @@ public class SignInDTO {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    @Override
+    public String toString() {
+        return "SignInDTO{" +
+                "username='" + username + '\'' +
+                ", password= CONFIDENTIAL}";
+    }
 }

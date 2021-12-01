@@ -90,4 +90,19 @@ public class SearchPersonaDTO {
     public void setSortDirection(String sortDirection) {
         this.sortDirection = sortDirection;
     }
+
+    @Override
+    public String toString() {
+        return "SearchPersonaDTO{" +
+                "nome='" + nome + '\'' +
+                ", cognome='" + cognome + '\'' +
+                ", dataNascitaMin=" + dataNascitaMin +
+                ", dataNascitaMax=" + dataNascitaMax +
+                ", citta='" + citta + '\'' +
+                ", page=" + page +
+                ", pageSize=" + pageSize +
+                ", sortBy='" + sortBy + '\'' +
+                ", sortDirection='" + sortDirection + '\'' +
+                '}';
+    }
 }

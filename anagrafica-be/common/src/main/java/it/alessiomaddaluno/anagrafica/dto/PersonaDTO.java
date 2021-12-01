@@ -45,4 +45,14 @@ public class PersonaDTO {
     public void setCitta(String citta) {
         this.citta = citta;
     }
+
+    @Override
+    public String toString() {
+        return "PersonaDTO{" +
+                "nome='" + nome + '\'' +
+                ", cognome='" + cognome + '\'' +
+                ", dataNascita=" + dataNascita +
+                ", citta='" + citta + '\'' +
+                '}';
+    }
 }
