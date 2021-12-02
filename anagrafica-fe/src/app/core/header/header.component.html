@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
     <a class="navbar-brand" href="#">Anagrafica</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -13,4 +13,33 @@
       </div>
     </div>
   </div>
+</nav> -->
+
+<nav>
+  <mat-toolbar color="primary">
+    <div class="container">
+      <mat-toolbar-row>
+        <h1>Anagrafica</h1>
+        <span class="menu-spacer"></span>
+        <div>
+          <a mat-button routerLinkActive="active" routerLink="/ricerca"
+            >Ricerca</a
+          >
+          <a mat-button routerLinkActive="active" routerLink="/censimento"
+            >Censimento</a
+          >
+          <a mat-button routerLinkActive="active" routerLink="/profilo"
+            >Profilo Personale</a
+          >
+          <a
+            mat-button
+            routerLinkActive="active"
+            (click)="onLogout()"
+            style="cursor: pointer"
+            >Logout</a
+          >
+        </div>
+      </mat-toolbar-row>
+    </div>
+  </mat-toolbar>
 </nav>

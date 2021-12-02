@@ -4,23 +4,53 @@
   <div class="row justify-content-md-center">
     <div class="col-md-6">
       <form (ngSubmit)="onSave()" [formGroup]="formCensimento">
-        <div class="form-group mb-3">
-          <label for="inputNome">Nome</label>
-          <input type="text" class="form-control" id="inputNome" placeholder="Nome" formControlName="nome">
-        </div>
-        <div class="form-group mb-3">
-          <label for="inputCognome">Cognome</label>
-          <input type="text" class="form-control" id="inputCognome" placeholder="Cognome" formControlName="cognome" >
-        </div>
-        <div class="form-group mb-3">
-          <label for="inputDN">Data nascita</label>
-          <input type="date" class="form-control" id="inputDataNascita" aria-describedby="etaHelo" placeholder="Data di nascita" formControlName="dataNascita">
-        </div>
-        <div class="form-group mb-3">
-          <label for="inputCitta">Città</label>
-          <input type="text" class="form-control" id="inputCitta" placeholder="Città" formControlName="citta">
-        </div>
-        <button mat-raised-button color="primary" type="submit" [disabled]="formCensimento.invalid" >Salva</button>
+
+        <mat-form-field appearance="fill" class="col-12">
+          <mat-label>Nome</mat-label>
+          <input
+            matInput
+            formControlName="nome"
+            type="text"
+            id="inputNome"
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="col-12">
+          <mat-label>Cognome</mat-label>
+          <input
+            matInput
+            formControlName="cognome"
+            type="text"
+            id="inputCognome"
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="col-12">
+          <mat-label>Data di nascita min.</mat-label>
+          <input
+            matInput
+            [matDatepicker]="pickerDNMin"
+            formControlName="dataNascita"
+            id="inputDataNascita"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="pickerDNMin"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #pickerDNMin></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="col-12">
+          <mat-label>Città</mat-label>
+          <input
+            matInput
+            formControlName="citta"
+            type="text"
+            id="inputCitta"
+          />
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit" [disabled]="formCensimento.invalid" class="col-12">Salva</button>
       </form>
     </div>
   </div>

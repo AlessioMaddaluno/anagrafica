@@ -74,18 +74,19 @@
             </div>
 
           <div class="row">
-            <div class="mb-3 col-sm-4">
+            <div class="mb-3 col-sm-6">
               <button
                 mat-raised-button
                 color="primary"
                 type="submit"
                 [disabled]="formRicerca.invalid"
+                class="col-12"
               >
                 Applica
               </button>
             </div>
-            <div class="mb-3 col-sm-4">
-              <button (click)="onReset()" mat-raised-button color="warn">
+            <div class="mb-3 col-sm-6">
+              <button (click)="onReset()" mat-raised-button color="warn" class="col-12">
                 Reset
               </button>
             </div>
