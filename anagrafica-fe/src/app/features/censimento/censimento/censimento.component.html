@@ -7,6 +7,9 @@
 
         <mat-form-field appearance="fill" class="col-12">
           <mat-label>Nome</mat-label>
+          <mat-error *ngIf="inputNome.invalid">
+            Nome obbligatorio. Deve contenere 4-8 caratteri.
+          </mat-error>
           <input
             matInput
             formControlName="nome"
@@ -16,6 +19,9 @@
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="col-12">
+          <mat-error *ngIf="inputCognome.invalid">
+            Cognome obbligatorio. Deve contenere 4-8 caratteri.
+          </mat-error>
           <mat-label>Cognome</mat-label>
           <input
             matInput
@@ -26,6 +32,9 @@
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="col-12">
+          <mat-error *ngIf="inputDataNascita.invalid">
+            Data di nascita obbligatoria.
+          </mat-error>
           <mat-label>Data di nascita min.</mat-label>
           <input
             matInput
@@ -42,6 +51,9 @@
 
         <mat-form-field appearance="fill" class="col-12">
           <mat-label>Città</mat-label>
+          <mat-error *ngIf="inputCitta.invalid">
+            Città obbligatoria. Non può contenere simboli o numeri.
+          </mat-error>
           <input
             matInput
             formControlName="citta"

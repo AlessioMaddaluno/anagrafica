@@ -24,6 +24,14 @@ export class HomepageComponent implements OnInit {
     rpassword: ['',[Validators.required]]
   });
 
+  onPasswordChange() {
+    if (this.inputRegistrazionePassword.value === this.inputRegistrazioneRPassword.value) {
+      this.inputRegistrazioneRPassword.setErrors(null);
+    } else {
+      this.inputRegistrazioneRPassword.setErrors({ mismatch: true });
+    }
+  }
+
   constructor(private router:Router, private formBuilder: FormBuilder, private authService: AuthService) { }
 
   ngOnInit(): void {}
@@ -69,6 +77,10 @@ export class HomepageComponent implements OnInit {
 
   get inputRegistrazionePassword() :AbstractControl {
     return this.registratiForm.get('password')!
+  }
+
+  get inputRegistrazioneRPassword() :AbstractControl {
+    return this.registratiForm.get('rpassword')!
   }
 
   get inputAccessoUsername() :AbstractControl {

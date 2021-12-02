@@ -11,7 +11,10 @@
           <form class="mb-5" [formGroup]="accediForm" (ngSubmit)="onLogin()">
 
             <mat-form-field appearance="fill" class="col-12">
-              <mat-label>Nome</mat-label>
+              <mat-label>Username</mat-label>
+              <mat-error *ngIf="inputAccessoUsername.invalid">
+                Username obbligatorio. Deve contenere dai 4 agli 8 caratteri alfanumerici.
+              </mat-error>
               <input
                 matInput
                 formControlName="username"
@@ -42,7 +45,10 @@
           <form [formGroup]="registratiForm" (ngSubmit)="onRegister()">
 
             <mat-form-field appearance="fill" class="col-12">
-              <mat-label>Nome</mat-label>
+              <mat-label>Username</mat-label>
+              <mat-error *ngIf="inputRegistrazioneUsername.invalid">
+                Username obbligatorio. Deve contenere dai 4 agli 8 caratteri alfanumerici.
+              </mat-error>
               <input
                 matInput
                 formControlName="username"
@@ -53,21 +59,29 @@
 
             <mat-form-field appearance="fill" class="col-12">
               <mat-label>Password</mat-label>
+              <mat-error *ngIf="inputRegistrazionePassword.invalid">
+                La password deve essere di 4-15 caratteri.
+              </mat-error>
               <input
                 matInput
                 formControlName="password"
                 type="password"
                 id="registerPassword"
+                (change)="onPasswordChange()"
               />
             </mat-form-field>
 
             <mat-form-field appearance="fill" class="col-12">
               <mat-label>Ripeti password</mat-label>
+              <mat-error *ngIf="inputRegistrazioneRPassword.invalid">
+                La password deve corrispondere a quella inserita.
+              </mat-error>
               <input
                 matInput
                 formControlName="rpassword"
                 type="password"
                 id="registerRpassword"
+                (change)="onPasswordChange()"
               />
             </mat-form-field>
 
