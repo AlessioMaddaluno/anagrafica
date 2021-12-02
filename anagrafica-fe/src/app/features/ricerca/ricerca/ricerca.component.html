@@ -94,64 +94,6 @@
         </form>
       </div>
     </mat-expansion-panel>
-
-    <!--
-
-          <mat-expansion-panel class="mb-3">
-
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Filtri
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-
-        <div>
-          <form (ngSubmit)="onSearch()" [formGroup]="formRicerca">
-
-            <div class="row">
-
-            <div class="mb-3 col-sm-4">
-              <label for="inputNome" class="form-label">Nome</label>
-              <input formControlName="nome" type="text" class="form-control" id="inputNome">
-            </div>
-
-            <div class="mb-3 col-sm-4">
-              <label for="inputCognome" class="form-label">Cognome</label>
-              <input formControlName="cognome" type="text" class="form-control" id="inputCognome">
-            </div>
-
-            <div class="mb-3 col-sm-4">
-              <label for="inputCitta" class="form-label">Città</label>
-              <input formControlName="citta" type="text" class="form-control" id="inputCitta">
-            </div>
-
-            <div class="mb-3 col-sm-4">
-              <label for="inputDNMin" class="form-label">Data di nascita min</label>
-              <input formControlName="dataNascitaMin" type="date" class="form-control" id="inputDNMin">
-            </div>
-
-            <div class="mb-3 col-sm-4">
-              <label for="inputDNMax" class="form-label">Data di nascita max</label>
-              <input formControlName="dataNascitaMax" type="date" class="form-control" id="inputDNMax">
-            </div>
-
-        </div>
-
-            <div class="row">
-              <div class="mb-3 col-sm-4">
-                <button mat-raised-button color="primary" type="submit" [disabled] = "formRicerca.invalid">Applica</button>
-              </div>
-              <div class="mb-3 col-sm-4">
-                <button (click)="onReset()" mat-raised-button color="warn" >Reset</button>
-              </div>
-            </div>
-
-         </form>
-        </div>
-
-      </mat-expansion-panel>
-
-      -->
   </section>
 
   <div
@@ -197,7 +139,7 @@
     <ng-container matColumnDef="delete">
       <th mat-header-cell *matHeaderCellDef>Elimina</th>
       <td mat-cell *matCellDef="let element">
-        <button (click)="onDelete(element.id)" mat-mini-fab color="warn">
+        <button (click)="openDialogDelete(element.id)" mat-mini-fab color="warn">
           <i class="fas fa-trash"></i>
         </button>
       </td>

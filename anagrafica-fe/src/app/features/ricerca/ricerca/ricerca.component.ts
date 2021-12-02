@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, AbstractControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { PersonaService } from 'src/app/core/services/persona.service';
 import { SpinnerService } from 'src/app/core/services/spinner.service';
 import { Persona } from 'src/app/shared/models/persona.model';
+import { ModalConfermaComponent } from '../modal-conferma/modal-conferma.component';
 
 @Component({
   selector: 'app-ricerca',
@@ -36,16 +38,14 @@ export class RicercaComponent implements OnInit {
     citta: ['', [Validators.pattern("^[a-zA-Z ]*$")]]
   });
 
-  constructor(private personaService:PersonaService,private formBuilder:FormBuilder, private router:Router,private spinnerService:SpinnerService) { }
+  constructor(
+    private personaService:PersonaService,
+    private formBuilder:FormBuilder,
+    private router:Router,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.onSearch();
-  }
-
-  onDelete(id:number){
-    this.personaService.deleteById(id).subscribe(() => {
-      this.onSearch()
-    })
   }
 
   onEdit(id:number){
@@ -100,6 +100,21 @@ export class RicercaComponent implements OnInit {
 
   counter(i:number){
     return new Array(i);
+  }
+
+  openDialogDelete(id:number): void {
+    const confermaEliminazione:boolean = false;
+    const dialogRef = this.dialog.open(ModalConfermaComponent, {
+      width: '350px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.personaService.deleteById(id).subscribe(() => {
+          this.onSearch()
+        })
+      }
+    })
   }
 
 	get inputRicercaNome() :AbstractControl{
