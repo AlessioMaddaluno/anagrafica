@@ -1,6 +1,7 @@
-package it.alessiomaddaluno.anagrafica.security;
+package it.alessiomaddaluno.anagrafica.config;
 
 
+import it.alessiomaddaluno.anagrafica.security.AuthorizationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,7 +19,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
         http.cors().and().csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().addFilter(new AuthorizationFilter(authenticationManager())).authorizeRequests()
-                .antMatchers("/auth/**","/").permitAll()
+                .antMatchers("/auth/**","/","/notification/**","/my-socket/**").permitAll()
                 .anyRequest().authenticated();
     }
 

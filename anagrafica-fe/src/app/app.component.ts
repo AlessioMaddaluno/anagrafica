@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { NotificationService } from './core/services/notification.service';
+
 
 @Component({
   selector: 'app-root',
@@ -8,8 +10,9 @@ import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 })
 export class AppComponent{
 
-  constructor(public router: Router){
+  constructor(public router: Router,private notificationService:NotificationService){
+    this.notificationService.connect();
   }
-  
+
 
 }
