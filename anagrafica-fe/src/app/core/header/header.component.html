@@ -1,24 +1,38 @@
-<nav>
-  <mat-toolbar color="primary">
-        <h1>Anagrafica</h1>
-        <span class="menu-spacer"></span>
-        <div>
-          <a mat-button routerLinkActive="active" routerLink="/ricerca"
-            >Ricerca</a
-          >
-          <a mat-button routerLinkActive="active" routerLink="/censimento"
-            >Censimento</a
-          >
-          <a mat-button routerLinkActive="active" routerLink="/profilo"
-            >Profilo Personale</a
-          >
-          <a
-            mat-button
-            routerLinkActive="active"
-            (click)="onLogout()"
-            style="cursor: pointer"
-            >Logout</a
-          >
-        </div>
-  </mat-toolbar>
-</nav>
+<mat-toolbar class="navbar navbar navbar-expand-lg navbar-dark" color="primary">
+  <div class="container">
+    <a class="navbar-brand" href="#">Anagrafica</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <div class="navbar-nav">
+        <a
+          class="nav-item nav-link"
+          routerLinkActive="active"
+          routerLink="/ricerca"
+          >Ricerca</a
+        >
+        <a
+          class="nav-item nav-link"
+          routerLinkActive="active"
+          routerLink="/censimento"
+          >Censimento</a
+        >
+        <a
+          class="nav-item nav-link"
+          routerLinkActive="active"
+          routerLink="/profilo"
+          >Profilo Personale</a
+        >
+        <a
+          class="nav-item nav-link"
+          routerLinkActive="active"
+          (click)="onLogout()"
+          style="cursor: pointer"
+          >Logout</a
+        >
+      </div>
+    </div>
+
+  </div>
+</mat-toolbar>

@@ -4,7 +4,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { PersonaService } from 'src/app/core/services/persona.service';
-import { SpinnerService } from 'src/app/core/services/spinner.service';
 import { Persona } from 'src/app/shared/models/persona.model';
 import { ModalConfermaComponent } from '../modal-conferma/modal-conferma.component';
 
@@ -18,7 +17,7 @@ export class RicercaComponent implements OnInit {
   data: Persona[] = []
   currentPage:number = 0;
   totalPages:number = 1;
-  pageSize:number = 5;
+  pageSize:number = 10;
   totalElements:number = 0;
 
   displayedColumns = [

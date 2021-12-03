@@ -12,6 +12,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from "@angular/material/list";
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { DarkModeToggleComponent } from './dark-mode-toggle/dark-mode-toggle.component';
 
 
 const MATERIAL_COMPONENTS = [
@@ -26,17 +28,21 @@ const MATERIAL_COMPONENTS = [
   MatToolbarModule,
   MatSidenavModule,
   MatListModule,
-  MatDialogModule
+  MatDialogModule,
+  MatSlideToggleModule
 ]
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    DarkModeToggleComponent
+  ],
   imports: [
     CommonModule,
     ...MATERIAL_COMPONENTS
   ],
   exports: [
-    ...MATERIAL_COMPONENTS
+    ...MATERIAL_COMPONENTS,
+    DarkModeToggleComponent
   ]
 })
 export class SharedModule { }
