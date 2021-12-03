@@ -14,9 +14,8 @@ export class JwtInterceptor implements HttpInterceptor {
 
         this.spinnerService.showSpinner();
 
-        const token = localStorage.getItem('JWT_TOKEN');
-        if (token) {
-            request = request.clone({setHeaders: {Authorization: `Bearer ${token}`}});
+        if (localStorage.getItem('JWT_TOKEN')) {
+            request = request.clone({setHeaders: {Authorization: `Bearer ${localStorage.getItem('JWT_TOKEN')}`}});
         }
         return next.handle(request).pipe(
             finalize(() => this.spinnerService.hideSpinner())
