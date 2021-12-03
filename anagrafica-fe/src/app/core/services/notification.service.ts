@@ -9,9 +9,7 @@ import { webSocket } from 'rxjs/webSocket';
 export class NotificationService {
 
   stompConfig = {
-    // Broker URL, should start with ws:// or wss:// - adjust for your broker setup
     brokerURL: "ws://localhost:8080/anagrafica-api/my-socket",
-    // If disconnected, it will retry after 200ms
     reconnectDelay: 1000,
   };
 
@@ -22,12 +20,11 @@ export class NotificationService {
 
     socket.activate();
 
-    const rxJsSubscription = socket.watch('push-notifications').pipe(
+    return socket.watch('push-notifications').pipe(
       map((message) => {
-        return message.body;
+        return JSON.parse(message.body);
       })
-    ).subscribe((data) => console.log(data))
-
+    );
 
   }
 }

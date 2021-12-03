@@ -14,6 +14,7 @@ import { MatListModule } from "@angular/material/list";
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { DarkModeToggleComponent } from './dark-mode-toggle/dark-mode-toggle.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 const MATERIAL_COMPONENTS = [
@@ -29,7 +30,8 @@ const MATERIAL_COMPONENTS = [
   MatSidenavModule,
   MatListModule,
   MatDialogModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
+  MatSnackBarModule
 ]
 
 @NgModule({
