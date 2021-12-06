@@ -1,22 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
+import { DarkModeService } from 'src/app/core/services/darkmode.service';
 
 @Component({
   selector: 'app-dark-mode-toggle',
   templateUrl: './dark-mode-toggle.component.html',
   styleUrls: ['./dark-mode-toggle.component.css']
 })
-export class DarkModeToggleComponent implements OnInit {
+export class DarkModeToggleComponent {
 
   darkMode: boolean = false;
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  constructor(private darkModeService:DarkModeService) { }
 
   onToggle(){
     this.darkMode = !this.darkMode;
-    console.log(this.darkMode)
+    this.darkModeService.toggleDarkMode()
   }
 
 }

@@ -1,5 +1,5 @@
 <app-spinner [loading]="true"></app-spinner>
-<div class="d-flex flex-column justify-content-between" style="min-height: 100vh;">
+<div class="d-flex flex-column justify-content-between" style="min-height: 100vh; background-color: inherit;">
     <div>
         <app-header *ngIf="!router.isActive('login',true)" ></app-header>
         <router-outlet></router-outlet>

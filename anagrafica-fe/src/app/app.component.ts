@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
 import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { DarkModeService } from './core/services/darkmode.service';
 import { NotificationService } from './core/services/notification.service';
 
 
@@ -11,6 +12,17 @@ import { NotificationService } from './core/services/notification.service';
 })
 export class AppComponent implements OnInit{
 
+  darkMode: boolean = false;
+  @HostBinding('class')
+  get themeMode(){
+    return this.darkMode ? 'dark-mode' : 'light-mode';
+  }
+
+  onToggle(){
+    this.darkMode = !this.darkMode;
+    console.log(this.darkMode)
+  }
+
   matSnackConfig: MatSnackBarConfig = {
     duration: 5000
   }
@@ -18,7 +30,8 @@ export class AppComponent implements OnInit{
   constructor(
     public router: Router,
     private notificationService:NotificationService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private darkModeService:DarkModeService
     ){
 
   }
@@ -28,6 +41,12 @@ export class AppComponent implements OnInit{
       this.snackBar.open(notification.notificationMessage,'Chiudi',this.matSnackConfig);
     })
 
+    this.darkModeService.darkModeToggle.subscribe((darkMode) => {
+      this.darkMode = darkMode;
+    })
+
   }
+
+
 
 }
