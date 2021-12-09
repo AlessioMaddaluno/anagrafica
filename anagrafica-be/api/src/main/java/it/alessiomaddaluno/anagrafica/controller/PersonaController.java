@@ -15,41 +15,40 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/persona")
 public class PersonaController {
 
+    Logger logger = LoggerFactory.getLogger(PersonaController.class);
     @Autowired
     private PersonaService personaService;
 
-    Logger logger = LoggerFactory.getLogger(PersonaController.class);
-
     // Create
     @PostMapping()
-    public ResponseEntity<PersonaResource> insertPersona(@RequestBody PersonaDTO dto){
-        logger.info("[insertPersona] START - input: {} ",dto);
+    public ResponseEntity<PersonaResource> insertPersona(@RequestBody PersonaDTO dto) {
+        logger.info("[insertPersona] START - input: {} ", dto);
         PersonaResource resource = this.personaService.insert(dto);
-        logger.info("[insertPersona] END OK - output: {} ",resource);
+        logger.info("[insertPersona] END OK - output: {} ", resource);
         return ResponseEntity.ok(resource);
     }
 
     // Read
     @PostMapping("search")
-    public ResponseEntity<Page<PersonaResource>> search(@RequestBody SearchPersonaDTO dto){
-        logger.info("[search] START - input: {} ",dto);
+    public ResponseEntity<Page<PersonaResource>> search(@RequestBody SearchPersonaDTO dto) {
+        logger.info("[search] START - input: {} ", dto);
         Page<PersonaResource> page = this.personaService.search(dto);
-        logger.info("[search] END OK - output: {} ",page.getTotalElements());
+        logger.info("[search] END OK - output: {} ", page.getTotalElements());
         return ResponseEntity.ok(page);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PersonaResource> findById(@PathVariable("id") Long id){
-        logger.info("[findById] START - input: {} ",id);
+    public ResponseEntity<PersonaResource> findById(@PathVariable("id") Long id) {
+        logger.info("[findById] START - input: {} ", id);
         PersonaResource resource = this.personaService.findById(id);
-        logger.info("[findById] END OK - output: {} ",resource);
+        logger.info("[findById] END OK - output: {} ", resource);
         return ResponseEntity.ok(resource);
     }
 
     // Delete
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletePersona(@PathVariable("id") Long id){
-        logger.info("[deletePersona] START - input: {} ",id);
+    public ResponseEntity<?> deletePersona(@PathVariable("id") Long id) {
+        logger.info("[deletePersona] START - input: {} ", id);
         this.personaService.delete(id);
         logger.info("[deletePersona] END OK - output: void ");
         return ResponseEntity.ok(null);
@@ -57,10 +56,10 @@ public class PersonaController {
 
     // Update
     @PutMapping("/{id}")
-    public ResponseEntity<PersonaResource> updatePersona(@PathVariable("id") Long id, @RequestBody() PersonaDTO dto){
-        logger.info("[updatePersona] START - input: id - {}, dto - {} ",id,dto);
-        PersonaResource resource = this.personaService.update(dto,id);
-        logger.info("[updatePersona] END OK - output: {} ",resource);
+    public ResponseEntity<PersonaResource> updatePersona(@PathVariable("id") Long id, @RequestBody() PersonaDTO dto) {
+        logger.info("[updatePersona] START - input: id - {}, dto - {} ", id, dto);
+        PersonaResource resource = this.personaService.update(dto, id);
+        logger.info("[updatePersona] END OK - output: {} ", resource);
         return ResponseEntity.ok(resource);
     }
 

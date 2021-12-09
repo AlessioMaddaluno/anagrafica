@@ -10,16 +10,16 @@ public class Persona {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "NOME",nullable = false)
+    @Column(name = "NOME", nullable = false)
     private String nome;
 
-    @Column(name = "COGNOME",nullable = false)
+    @Column(name = "COGNOME", nullable = false)
     private String cognome;
 
-    @Column(name = "DATA_NASCITA",nullable = false)
+    @Column(name = "DATA_NASCITA", nullable = false)
     private LocalDateTime dataNascita;
 
-    @Column(name = "CITTA",nullable = false)
+    @Column(name = "CITTA", nullable = false)
     private String citta;
 
     public Persona() {

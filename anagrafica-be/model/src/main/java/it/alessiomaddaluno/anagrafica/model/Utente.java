@@ -8,10 +8,10 @@ import javax.persistence.Id;
 public class Utente {
 
     @Id
-    @Column(name = "USERNAME",nullable = false)
+    @Column(name = "USERNAME", nullable = false)
     private String username;
 
-    @Column(name = "PASSWORD",nullable = false)
+    @Column(name = "PASSWORD", nullable = false)
     private String password;
 
     public Utente() {

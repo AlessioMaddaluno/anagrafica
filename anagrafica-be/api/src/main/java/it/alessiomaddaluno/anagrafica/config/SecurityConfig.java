@@ -12,19 +12,19 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 @Configuration
-public class SecurityConfig extends WebSecurityConfigurerAdapter  {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().addFilter(new AuthorizationFilter(authenticationManager())).authorizeRequests()
-                .antMatchers("/auth/**","/","/notification/**","/my-socket/**","/public/**").permitAll()
+                .antMatchers("/auth/**", "/", "/notification/**", "/my-socket/**", "/public/**").permitAll()
                 .anyRequest().authenticated();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 

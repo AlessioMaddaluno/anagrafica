@@ -24,35 +24,35 @@ public class PersonaService {
     @Autowired
     private PersonaCustomRepository personaCustomRepository;
 
-    public PersonaResource findById(Long id){
+    public PersonaResource findById(Long id) {
         Optional<Persona> personaOptional = this.personaRepository.findById(id);
 
-        if(!personaOptional.isPresent()){
-            throw new AnagraficaException("Persona con id="+id+" non trovata.", HttpStatus.NOT_FOUND);
+        if (!personaOptional.isPresent()) {
+            throw new AnagraficaException("Persona con id=" + id + " non trovata.", HttpStatus.NOT_FOUND);
         }
 
         return this.assembler(personaOptional.get());
     }
 
-    public PersonaResource insert(PersonaDTO dto){
+    public PersonaResource insert(PersonaDTO dto) {
         Persona model = personaRepository.save(this.transformer(dto));
         return this.assembler(model);
     }
 
-    public void delete(Long id){
-        try{
+    public void delete(Long id) {
+        try {
             personaRepository.deleteById(id);
-        }catch (Exception e){
-            throw new AnagraficaException("Persona con id="+id+" non trovata.", HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            throw new AnagraficaException("Persona con id=" + id + " non trovata.", HttpStatus.NOT_FOUND);
         }
     }
 
-    public PersonaResource update(PersonaDTO dto, Long id){
+    public PersonaResource update(PersonaDTO dto, Long id) {
         Persona model = this.transformer(dto);
         Optional<Persona> personaOptional = this.personaRepository.findById(id);
 
-        if(!personaOptional.isPresent()){
-            throw new AnagraficaException("Persona con id="+id+" non trovata.", HttpStatus.NOT_FOUND);
+        if (!personaOptional.isPresent()) {
+            throw new AnagraficaException("Persona con id=" + id + " non trovata.", HttpStatus.NOT_FOUND);
         }
 
         Persona persona = this.transformer(dto);
@@ -63,13 +63,13 @@ public class PersonaService {
         return this.assembler(savedModel);
     }
 
-    public Page<PersonaResource> search(SearchPersonaDTO dto){
+    public Page<PersonaResource> search(SearchPersonaDTO dto) {
         Page<PersonaResource> page = this.personaCustomRepository.search(dto);
         return page;
     }
 
     // it.alessiomaddaluno.anagrafica.dto -> it.alessiomaddaluno.anagrafica.model
-    private Persona transformer(PersonaDTO dto){
+    private Persona transformer(PersonaDTO dto) {
         Persona model = new Persona();
         model.setNome(dto.getNome());
         model.setCognome(dto.getCognome());
@@ -79,7 +79,7 @@ public class PersonaService {
     }
 
     // it.alessiomaddaluno.anagrafica.model -> it.alessiomaddaluno.anagrafica.resource
-    private PersonaResource assembler(Persona model){
+    private PersonaResource assembler(Persona model) {
 
         PersonaResource resource = new PersonaResource();
         resource.setId(model.getId());

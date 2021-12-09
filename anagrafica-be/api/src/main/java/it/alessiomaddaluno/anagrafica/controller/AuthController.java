@@ -20,35 +20,34 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("auth")
 public class AuthController {
 
+    Logger logger = LoggerFactory.getLogger(AuthController.class);
     @Autowired
     private AuthService authService;
 
-    Logger logger = LoggerFactory.getLogger(AuthController.class);
-
     @PostMapping("accedi")
-    ResponseEntity<TokenResource> login(@RequestBody SignInDTO dto, HttpServletResponse request){
+    ResponseEntity<TokenResource> login(@RequestBody SignInDTO dto, HttpServletResponse request) {
         logger.info("[login] START - input: CONFIDENTIAL ");
-        String token = this.authService.authenticateUser(dto.getUsername(),dto.getPassword());
-        request.setHeader(JwtConfiguration.PARAM,token);
+        String token = this.authService.authenticateUser(dto.getUsername(), dto.getPassword());
+        request.setHeader(JwtConfiguration.PARAM, token);
         logger.info("[login] END OK - output: CONFIDENTIAL ");
         return ResponseEntity.ok(new TokenResource(token));
     }
 
     @PostMapping("registrati")
-    ResponseEntity<TokenResource> register(@RequestBody SignUpDTO dto, HttpServletResponse request){
+    ResponseEntity<TokenResource> register(@RequestBody SignUpDTO dto, HttpServletResponse request) {
         logger.info("[register] START - input: CONFIDENTIAL ");
         String token = this.authService.registerUser(dto);
-        request.setHeader(JwtConfiguration.PARAM,token);
+        request.setHeader(JwtConfiguration.PARAM, token);
         logger.info("[register] END OK - output: CONFIDENTIAL ");
         return ResponseEntity.ok(new TokenResource(token));
     }
 
     @GetMapping("me")
-    ResponseEntity<UtenteResource> getMe(HttpServletRequest request){
+    ResponseEntity<UtenteResource> getMe(HttpServletRequest request) {
         logger.info("[getMe] START - input: void ");
         String token = request.getHeader(JwtConfiguration.PARAM).split("Bearer ")[1];
         UtenteResource utenteResource = this.authService.getMe(token);
-        logger.info("[getMe] END OK - output: {} ",utenteResource);
+        logger.info("[getMe] END OK - output: {} ", utenteResource);
         return ResponseEntity.ok(utenteResource);
     }
 }

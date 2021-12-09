@@ -1,7 +1,6 @@
 package it.alessiomaddaluno.anagrafica.resource;
 
 
-
 public class UtenteResource {
 
     private String username;

@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 public class CustomExceptionHandler {
 
     @ExceptionHandler(value = {AnagraficaException.class})
-    public ResponseEntity<GenericErrorResponse> genericHandler(AnagraficaException exception, HttpServletRequest request){
+    public ResponseEntity<GenericErrorResponse> genericHandler(AnagraficaException exception, HttpServletRequest request) {
 
-        GenericErrorResponse errorResponse = new GenericErrorResponse(exception.getMessage(),exception.getStatus());
+        GenericErrorResponse errorResponse = new GenericErrorResponse(exception.getMessage(), exception.getStatus());
 
         return ResponseEntity.status(exception.getStatus()).body(errorResponse);
     }

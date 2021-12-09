@@ -16,7 +16,7 @@ public class NotificationController {
     private NotificationService notificationService;
 
     @PostMapping("global")
-    public void global(@RequestBody NotificationDTO notificationDTO){
+    public void global(@RequestBody NotificationDTO notificationDTO) {
         this.notificationService.globalNotification(notificationDTO);
     }
 

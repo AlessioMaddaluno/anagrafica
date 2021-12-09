@@ -12,16 +12,19 @@ import java.util.Map;
 
 public class JwtProvider {
 
-    public static String createJwt(String subject, Map<String,String> payloadClaims) {
+    private JwtProvider() {
+    }
 
-        JWTCreator.Builder builder =  JWT.create()
+    public static String createJwt(String subject, Map<String, String> payloadClaims) {
+
+        JWTCreator.Builder builder = JWT.create()
                 .withSubject(subject)
                 .withIssuedAt(new Date())
                 .withExpiresAt(DateUtils.addMonths(new Date(), 1));
 
         if (payloadClaims != null && !payloadClaims.isEmpty()) {
 
-            for (Map.Entry<String,String> entry : payloadClaims.entrySet()) {
+            for (Map.Entry<String, String> entry : payloadClaims.entrySet()) {
                 builder.withClaim(entry.getKey(), entry.getValue().toString());
             }
         }
@@ -31,6 +34,4 @@ public class JwtProvider {
     public static DecodedJWT verifyJwt(String jwt) {
         return JWT.require(Algorithm.HMAC256(JwtConfiguration.SECRET)).build().verify(jwt);
     }
-
-    private JwtProvider() {}
 }

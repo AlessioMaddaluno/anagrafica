@@ -21,8 +21,8 @@ public class EmailService {
     @Value("${email.default-email}")
     private String defaultEmail;
 
-    public void sendSimpleMessage(String to, String subject, String textMessage){
-        logger.info("[START] to: %s , subject: %s",to,subject);
+    public void sendSimpleMessage(String to, String subject, String textMessage) {
+        logger.info("[START] to: %s , subject: %s", to, subject);
 
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(defaultEmail);
@@ -33,7 +33,7 @@ public class EmailService {
 
         emailSender.send(message);
 
-        logger.info("[END OK] to: %s , subject: %s",to,subject);
+        logger.info("[END OK] to: %s , subject: %s", to, subject);
     }
 
 }

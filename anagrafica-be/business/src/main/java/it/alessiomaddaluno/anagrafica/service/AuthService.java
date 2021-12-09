@@ -25,27 +25,27 @@ public class AuthService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public String authenticateUser(String username, String password){
+    public String authenticateUser(String username, String password) {
 
         String encodedPassword = password;
-        Utente utente = this.utenteRepository.findByUsernameAndPassword(username,encodedPassword);
+        Utente utente = this.utenteRepository.findByUsernameAndPassword(username, encodedPassword);
 
-        if( utente == null) {
+        if (utente == null) {
             throw new AnagraficaException("Username e/o password errati", HttpStatus.UNAUTHORIZED);
         }
 
-        Map<String,String> claimMap = new HashMap<>();
+        Map<String, String> claimMap = new HashMap<>();
         claimMap.put("user", utente.getUsername());
         String jwt = JwtProvider.createJwt(utente.getUsername(), claimMap);
 
         return jwt;
     }
 
-    public String registerUser(SignUpDTO dto){
+    public String registerUser(SignUpDTO dto) {
 
         Utente utente = this.utenteRepository.findByUsername(dto.getUsername());
 
-        if(utente != null){
+        if (utente != null) {
             throw new AnagraficaException("Username non disponibile", HttpStatus.UNAUTHORIZED);
         }
 
@@ -57,13 +57,13 @@ public class AuthService {
 
         utenteRepository.save(nuovoUtente);
 
-        String jwt = this.authenticateUser(dto.getUsername(),dto.getPassword());
+        String jwt = this.authenticateUser(dto.getUsername(), dto.getPassword());
 
         return jwt;
 
     }
 
-    public UtenteResource getMe(String token){
+    public UtenteResource getMe(String token) {
 
         DecodedJWT decodedJWT = JwtProvider.verifyJwt(token);
         String username = decodedJWT.getClaim("user").as(String.class);

@@ -11,8 +11,8 @@ public class NotificationService {
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
 
-    public void globalNotification(NotificationDTO dto){
-        messagingTemplate.convertAndSend("push-notifications",dto);
+    public void globalNotification(NotificationDTO dto) {
+        messagingTemplate.convertAndSend("push-notifications", dto);
     }
 
 
